@@ -26,6 +26,7 @@
   "loan_partner",
   "loan_category",
   "repayment_schedule_type",
+  "no_interest_till_month_end",
   "cancellation_date",
   "settlement_date",
   "column_break_11",
@@ -97,6 +98,8 @@
   "column_break_yskw",
   "refund_amount",
   "excess_amount_paid",
+  "loan_import_details_tab",
+  "loan_import_details",
   "connections_tab"
  ],
  "fields": [
@@ -168,6 +171,7 @@
    "fieldtype": "Select",
    "in_standard_filter": 1,
    "label": "Status",
+   "mandatory_depends_on": "is_imported",
    "no_copy": 1,
    "options": "\nDraft\nSanctioned\nPartially Disbursed\nDisbursed\nActive\nLoan Closure Requested\nClosed\nWritten Off\nSettled",
    "read_only": 1,
@@ -436,6 +440,15 @@
    "fieldtype": "Data",
    "hidden": 1,
    "label": "Repayment Schedule Type",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fetch_from": "loan_product.no_interest_till_month_end",
+   "fieldname": "no_interest_till_month_end",
+   "fieldtype": "Check",
+   "hidden": 1,
+   "label": "No Interest Accrual Till Month End",
    "read_only": 1
   },
   {
@@ -734,6 +747,13 @@
    "fieldname": "loan_import_details_tab",
    "fieldtype": "Tab Break",
    "label": "Loan Import Details"
+  },
+  {
+   "fieldname": "loan_import_details",
+   "fieldtype": "Table",
+   "label": "Loan Import Details",
+   "mandatory_depends_on": "eval:(doc.is_imported && doc.status !== \"Closed\")",
+   "options": "Loan Import Details"
   },
   {
    "default": "0",
